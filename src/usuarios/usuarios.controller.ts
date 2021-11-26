@@ -12,10 +12,13 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 import { Usuario } from '@prisma/client';
 import { CriarUsuarioDto } from './dto/criar-usuario.dto';
 import { UsuariosService } from './usuarios.service';
 
+
+@ApiTags('usuario')
 @Controller('usuario')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}

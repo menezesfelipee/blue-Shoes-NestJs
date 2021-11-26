@@ -20,7 +20,10 @@ import { AtualizarProdutoDto } from './dto/atualizar-produtos.dto';
 import { ProcurarProdutosQueryDto } from './dto/procurar-produtos.dto';
 import { UserRole } from 'src/usuarios/usuario-roles.enum';
 import { Role } from 'src/common/role.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('produto')
 @Controller('produto')
 export class ProdutoController {
   constructor(private produto: ProdutoService) {}
