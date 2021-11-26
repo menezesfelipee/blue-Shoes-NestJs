@@ -9,11 +9,13 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/common/role.decorator';
 import { UserRole } from 'src/usuarios/usuario-roles.enum';
 import { CriarMarcaDto } from './dto/criar-marca.dto';
 import { MarcaService } from './marca.service';
 
+@ApiTags('marca')
 @Controller('marca')
 export class MarcaController {
   constructor(private marca: MarcaService) {}

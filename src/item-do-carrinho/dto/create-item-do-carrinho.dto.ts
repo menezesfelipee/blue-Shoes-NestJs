@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateItemDoCarrinhoDto {
@@ -7,27 +8,26 @@ export class CreateItemDoCarrinhoDto {
 
   @IsOptional()
   @IsNumber()
-    /**
-   * id do carrinho
-   * @example 1234
-   */
-
+  @ApiProperty({
+    example: '321',
+    description: `id do carrinho`,
+  })
   carrinhoId?: number;
 
   @IsOptional()
   @IsNumber()
-      /**
-   * id do produto para adicionar ao carrinho
-   * @example 12345
-   */
+  @ApiProperty({
+    example: '22',
+    description: `id do produto para adiciona-lo no carrinh`,
+  })
   produtoId?: number;
 
   @IsOptional()
   @IsNumber()
   @IsNotEmpty()
-      /**
-   * quantidade do produto adicionada no carrinho
-   * @example 2
-   */
+  @ApiProperty({
+    example: '3',
+    description: `quantidade de produtos adicionada a carrinho`,
+  })
   quantidade: number;
 }

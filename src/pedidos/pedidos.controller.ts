@@ -6,7 +6,7 @@ import { PedidosDto } from './dto/pedidos-chekout.dto';
 import { PedidosService } from './pedidos.service';
 
 
-ApiTags('pedidos')
+@ApiTags('pedidos')
 @Controller('pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}

@@ -1,23 +1,24 @@
 import { IsString, Length, MaxLength } from 'class-validator';
 import { Usuario } from '.prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginDto {
   @IsString()
   @MaxLength(200)
 
-  /**
-   * O e-mail é necessário apra o login, 
-   * @example email@email.com
-   */
+  @ApiProperty({
+    example: 'example@mail.com',
+    description: `email necessario para login e cadastro`,
+  })
   email: string;
 
   @IsString()
   @Length(8, 30)
 
-  /**
-   * a senha é necessaria para o login, entre 8 a  30 caracteres 
-   * @example 123@abcd
-   */
+  @ApiProperty({
+    example: '123@ABCd!!',
+    description: `senha para cadastro entre 8 e 30 caracteres`,
+  })
   senha: string;
 }
 

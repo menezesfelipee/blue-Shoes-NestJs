@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Pedido } from '@prisma/client';
 import {
   IsString,
@@ -16,35 +17,39 @@ export class CriarUsuarioDto {
   @Length(2, 100)
   @MaxLength(100)
   @IsOptional()
-    /**
-   * nome do usuario apoos o login
-   * @example Lucas
-   */
+  @ApiProperty({
+    example: 'Lucas',
+    description: `nome para visualizaçao do usuario`,
+  })
   nome: string;
 
   @IsOptional()
   @Length(2, 100)
   @MaxLength(100)
   @IsString()
-    /**
-   * sobrenome do usuario
-   * @example Menezes
-   */
+  @ApiProperty({
+    example: 'menezes',
+    description: `sobrenome para visualizaçao do usuario`,
+  })
   sobrenome: string;
 
   @IsOptional()
   @IsEmail()
   @IsString()
+  @ApiProperty({
+    example: 'example@mail.com',
+    description: `email do usuario para cadastro e login`,
+  })
   email: string;
 
   @IsOptional()
   @Cpf()
   @IsString()
   @IsNotEmpty({ message: 'Infome o CPF' })
-    /**
-   * inserir cpf do usuario
-   * @example 411.822.758.42
-   */
+  @ApiProperty({
+    example: '41182275842',
+    description: `cpf d usuario`,
+  })
   cpf: string;
 
   @Length(8, 20)
@@ -53,10 +58,10 @@ export class CriarUsuarioDto {
     message: 'password too weak',
   })
   @IsString()
-    /**
-   * escolha da senha do usuario
-   * @example 123@!Abc
-   */
+  @ApiProperty({
+    example: '123@ABCd##',
+    description: `senha do usuario entre 8 a 20 caracteres, obrigatorio letra maiuscula simbolos e numeros`,
+  })
   senha: string;
 
   @IsOptional()
@@ -66,9 +71,9 @@ export class CriarUsuarioDto {
   role: UserRole;
 
   @IsOptional()
-    /**
-   * id do carrinho salvo para continuar a compra
-   * @example 123
-   */
+  @ApiProperty({
+    example: '123',
+    description: `id do carrinho para mante-lo salvo antes e após login`,
+  })
   carrinhoId: number;
 }
