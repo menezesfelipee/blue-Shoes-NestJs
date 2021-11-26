@@ -9,9 +9,7 @@ import {
 } from '@nestjs/common';
 import { CarrinhoService } from './carrinho.service';
 import { Carrinho } from '.prisma/client';
-import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('carrinho')
 @Controller('carrinho')
 export class CarrinhoController {
   constructor(private carrinho: CarrinhoService) {}
