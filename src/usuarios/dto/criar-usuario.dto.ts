@@ -43,6 +43,14 @@ export class CriarUsuarioDto {
   @IsString()
   senha: string;
 
+  @Length(8, 20)
+  @IsOptional()
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'password too weak',
+  })
+  @IsString()
+  confirmacaoSenha: string;
+
   @IsOptional()
   pedido: Pedido;
 
@@ -51,4 +59,10 @@ export class CriarUsuarioDto {
 
   @IsOptional()
   carrinhoId: number;
+
+  @IsOptional()
+  confirmationToken: string;
+
+  @IsOptional()
+  recoveryPasswordToken: string;
 }
