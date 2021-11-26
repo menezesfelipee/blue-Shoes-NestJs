@@ -8,13 +8,10 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, AuthResponse } from './dto/auth.dto';
-import { ApiTags } from '@nestjs/swagger';
 import { CriarUsuarioDto } from 'src/usuarios/dto/criar-usuario.dto';
 import { AuthQueryDto } from './dto/auth.query.dto';
 import { ChangePasswordDto } from './dto/recoverypassword.dto';
 
-
-@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private service: AuthService) {}

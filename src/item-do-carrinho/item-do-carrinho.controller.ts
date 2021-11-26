@@ -14,10 +14,7 @@ import { ItemDoCarrinhoService } from './item-do-carrinho.service';
 import { CreateItemDoCarrinhoDto } from './dto/create-item-do-carrinho.dto';
 import { UpdateItemDoCarrinhoDto } from './dto/update-item-do-carrinho.dto';
 import { Item_do_carrinho } from '@prisma/client';
-import { ApiTags } from '@nestjs/swagger';
 
-
-@ApiTags('item-do-carrinho')
 @Controller('item')
 export class ItemDoCarrinhoController {
   constructor(private itemDoCarrinho: ItemDoCarrinhoService) {}
