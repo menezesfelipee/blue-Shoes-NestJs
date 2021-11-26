@@ -14,4 +14,7 @@ export class ProcurarProdutosQueryDto {
    * @example yeezy
    */
   marca: string;
+
+  @IsOptional()
+  cor: string;
 }

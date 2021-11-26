@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CriarProdutoDto {
   @IsString()
@@ -38,21 +38,9 @@ export class CriarProdutoDto {
    */
   quantidade_vendas: number;
 
-  @IsString()
-  /**
-   * logotipo da marca do produto
-   * @example https://w7.pngwing.com/pngs/224/696/png-transparent-nike-logo-movement-brands-black.png
-   */
-  logo: string;
-
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  /**
-   * marca do produto
-   * @example nike
-   */
-  
-  marca: string;
+  marcaId: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -65,12 +53,8 @@ export class CriarProdutoDto {
   @IsOptional()
   carrinhoId: number;
 
-  @IsNumber()
-    /**
-   * tamanho do produto
-   * @example 39
-   */
-  tamanho: number;
+  @IsArray()
+  tamanho: number[];
 
   @IsString()
     /**

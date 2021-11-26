@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Produto, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { AtualizarProdutoDto } from './dto/atualizar-produtos.dto';
-import { CriarProdutoDto } from './dto/criar-produtos.dto';
 import { ProcurarProdutosQueryDto } from './dto/procurar-produtos.dto';
 
 @Injectable()
@@ -22,6 +21,13 @@ export class ProdutoService {
   async findAll(): Promise<Produto[]> {
     return this.db.produto.findMany({
       include: {
+        marca: {
+          select: {
+            nome: true,
+            logo: true,
+            logo_parceiro: true,
+          },
+        },
         _count: {
           select: {
             Item_do_carrinho: true,
@@ -32,27 +38,38 @@ export class ProdutoService {
   }
 
   async findOne(produtoId: number) {
-    const { tamanho, ...produto } = await this.db.produto.findUnique({
+    const produto = await this.db.produto.findUnique({
       where: {
         id: produtoId,
       },
+      include: {
+        marca: {
+          select: {
+            nome: true,
+            logo: true,
+            logo_parceiro: true,
+          },
+        },
+      },
     });
+
+    if (!produto) {
+      throw new NotFoundException();
+    }
+
+    delete produto.tamanho;
+    delete produto.marcaId;
 
     const produtos = await this.db.produto.findMany({
       where: {
         nome: {
           contains: produto.nome,
-          mode: 'insensitive',
         },
       },
     });
 
     const res = {};
-    produtos.map((el) =>
-      !res[el.cor]
-        ? (res[el.cor] = [el.tamanho])
-        : res[el.cor].push(el.tamanho),
-    );
+    produtos.map((el) => (!res[el.cor] ? (res[el.cor] = el.tamanho) : ''));
 
     produto['tamanhos'] = res;
 
@@ -88,7 +105,7 @@ export class ProdutoService {
   }
 
   async produtoQuery(queryDto: ProcurarProdutosQueryDto): Promise<any> {
-    const { nome, marca } = queryDto;
+    const { nome, marca, cor } = queryDto;
     const produtos = await this.db.produto.findMany({
       where: {
         nome: {
@@ -96,9 +113,20 @@ export class ProdutoService {
           mode: 'insensitive',
         },
         marca: {
-          contains: marca,
+          is: {
+            nome: {
+              contains: marca,
+              mode: 'insensitive',
+            },
+          },
+        },
+        cor: {
+          contains: cor,
           mode: 'insensitive',
         },
+      },
+      include: {
+        marca: true,
       },
     });
     return produtos;
@@ -108,13 +136,19 @@ export class ProdutoService {
     const produtosGet = items.listaIds;
     const ProdutosRetornados = [];
 
-    for (let i = 0; i < produtosGet.length; i++) {
+    for (const i in produtosGet) {
       const produtoEncontrado = await this.db.produto.findUnique({
         where: { id: produtosGet[i] },
       });
-      ProdutosRetornados.push(produtoEncontrado);
+      if (!ProdutosRetornados[produtosGet[i]]) {
+        ProdutosRetornados[produtosGet[i]] = { ...produtoEncontrado };
+        ProdutosRetornados[produtosGet[i]]['quantidade'] = 1;
+      } else {
+        ProdutosRetornados[produtosGet[i]]['quantidade']++;
+      }
     }
+    const retorno = Object.values(ProdutosRetornados);
 
-    return ProdutosRetornados;
+    return retorno;
   }
 }

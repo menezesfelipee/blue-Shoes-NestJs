@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsArray, IsNumber, IsOptional } from 'class-validator';
 import { CriarProdutoDto } from './criar-produtos.dto';
 
 export class AtualizarProdutoDto extends PartialType(CriarProdutoDto) {
@@ -10,4 +10,8 @@ export class AtualizarProdutoDto extends PartialType(CriarProdutoDto) {
    * @example 123
    */
   carrinhoId: number;
+
+  @IsArray()
+  @IsOptional()
+  tamanho: number[];
 }
