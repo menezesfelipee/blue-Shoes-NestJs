@@ -4,7 +4,7 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class MailService {
   async send(token: string, email: string, nome: string): Promise<any> {
-    const url = `http://localhost:3000/auth/confirm?token=${token}&email=${email}`;
+    const url = `http://blueshoes-react.herokuapp.com/auth/confirm?token=${token}&email=${email}`;
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.mailgun.org',
@@ -44,7 +44,7 @@ export class MailService {
   }
 
   async sendPasswordConfirmation(token: string, email: string): Promise<any> {
-    const url = `http://localhost:3000/auth/nova-senha?token=${token}&email=${email}`;
+    const url = `http://blueshoes-react.herokuapp.com/auth/nova-senha?token=${token}&email=${email}`;
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.mailgun.org',
