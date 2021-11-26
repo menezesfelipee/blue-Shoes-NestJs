@@ -5,5 +5,9 @@ import { CriarProdutoDto } from './criar-produtos.dto';
 export class AtualizarProdutoDto extends PartialType(CriarProdutoDto) {
   @IsOptional()
   @IsNumber()
+    /**
+   * id do carrinho para a atualização do produto
+   * @example 123
+   */
   carrinhoId: number;
 }

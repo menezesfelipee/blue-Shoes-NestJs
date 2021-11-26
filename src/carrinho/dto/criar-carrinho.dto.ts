@@ -12,13 +12,25 @@ export class CriarCarrinhoDto {
 
   @IsNumber()
   @IsOptional()
+    /**
+   * quantidade de produtos no carrinho
+   * @example 123
+   */
   quantidade: number;
 
   @IsOptional()
+    /**
+   * valor total do carrinho
+   * @example 100.00
+   */
   valor_total: number;
 
   @IsNumber()
   @IsOptional()
+  /**
+   * id do usuario logado
+   * @example 123
+   */
   usuarioId: number;
 
   @IsOptional()

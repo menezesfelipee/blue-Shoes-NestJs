@@ -3,7 +3,10 @@ import { Usuario } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { LoginDto, AuthResponse } from './dto/auth.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private service: AuthService) {}
